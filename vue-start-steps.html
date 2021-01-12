@@ -1,0 +1,82 @@
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+    <button @click="revertMessage" style="width: 150px; height: 30px;">{{ message }}</button>
+    <div>
+        <template v-if="visible">
+            <p>showed</p>
+            <h3>Inside template1</h3>
+        </template>
+        <template v-else>
+            <p>another paragraph</p>
+            <h3>Inside template2</h3>
+        </template>        
+        <button @click="showHide">{{ visible ? 'Скрыть' : 'Показать' }}</button>
+    </div>
+    <input type="number" v-model="number" />
+    <p v-if="number==1">One</p>
+    <p v-else-if="number==2">Two</p>
+    <p v-else-if="number>2 && number<7">Few</p>
+    <p v-else="number>=7">Many</p>
+    <hr/>
+    <div v-for="day in weekDays">
+        {{day}}
+    </div> 
+    <hr/>
+    <my-first-component></my-first-component>   
+</div>
+<script>
+    Vue.component('my-first-component', {
+        template:"<h2>Hello, your first component</h2>"
+    });
+let vm = new Vue({
+    el: '#app',    
+    data: {
+        message: 'Hello Vue.js!',
+        flag: true,
+        visible: true,
+        number:1,
+        weekDays: ['Mo','Tu','We','Thu','Fr']               
+    },    
+    
+    methods:{      
+      revertMessage(){
+          if (this.flag){
+            this.message = 'Reverted';
+            this.flag = false;
+          }            
+          else {
+            this.message = 'Hello Vue.js!';
+            this.flag = true;
+          }            
+      },
+      showHide() {
+        this.visible = !this.visible;
+      }      
+    },
+    beforeCreate(){
+        console.log('beforeCreate()');        
+    },
+    created(){
+        console.log('created');
+    },
+    beforeMount(){
+        console.log('beforeMount()');
+    },
+    mounted(){
+        console.log('mounted()');
+    },
+    beforeUpdate(){
+        console.log('beforeUpdate');
+    },
+    updated(){
+        console.log('updated');
+    },
+    beforeUnmount(){
+        console.log('beforeUnmount()');
+    },
+    unmounted(){
+        console.log('unmounted()');
+    }
+});
+</script>
