@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Component Test</title>
+<meta charset="utf-8" />
+</head>
+<body>
+<div id="app">
+    <my-link :href="links" @preventdefaultevent="prevent"></my-link>    
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+    Vue.component('my-link', {        
+        props: ['href'],
+        template: `<ul>
+                        <li v-for="link in href">
+                            <a :href="link" @click.prevent="onLinkClick(link)">{{link}}</a> 
+                        </li>
+                   </ul>`,        
+        methods: {
+            onLinkClick: function(linkname){
+                this.$emit('preventdefaultevent', linkname)
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            links:["https://yandex.ru/","https://google.com/"]
+        },
+        methods: {
+            prevent: function(msg){  
+                alert(msg);     
+            }
+        }
+    });
+</script>
+</body>
+</html>
