@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="app">
-    <my-link :href="links" @preventdefaultevent="prevent"></my-link>    
+    <my-link :href="linksNames" @preventdefaultevent="prevent"></my-link>    
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
@@ -32,6 +32,11 @@
         methods: {
             prevent: function(msg){  
                 alert(msg);     
+            }
+        },
+        computed: {
+            linksNames: function() {
+                return this.links.map(l => l.substring(l.indexOf('/') + 2).replace('.ru','').replace('.com','').replace('/',''));
             }
         }
     });
