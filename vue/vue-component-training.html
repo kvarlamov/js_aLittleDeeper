@@ -6,7 +6,8 @@
 </head>
 <body>
 <div id="app">
-    <my-link :href="linksNames" @preventdefaultevent="prevent"></my-link>    
+    <my-link :href="linksNames" @preventdefaultevent="prevent"></my-link>
+    <p>{{somegetset}}</p>
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
@@ -27,7 +28,8 @@
     var app = new Vue({
         el: '#app',
         data: {
-            links:["https://yandex.ru/","https://google.com/"]
+            links:["https://yandex.ru/","https://google.com/"],
+            value: 1
         },
         methods: {
             prevent: function(msg){  
@@ -37,6 +39,14 @@
         computed: {
             linksNames: function() {
                 return this.links.map(l => l.substring(l.indexOf('/') + 2).replace('.ru','').replace('.com','').replace('/',''));
+            },
+            somegetset: {
+                get: function() {
+                    return this.value;
+                },
+                set: function(newValue) {
+                    this.value = this.value + newValue;
+                }
             }
         }
     });
