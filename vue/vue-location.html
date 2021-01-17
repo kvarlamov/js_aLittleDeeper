@@ -28,6 +28,12 @@
 <!-- <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
 <script>
 window.location.hash = 'home';
+window.addEventListener('hashchange',function() {
+  console.log('hash was changed');
+})
+window.addEventListener('popstate', function(){
+  console.log('history changed')
+})
 Vue.component('home', {
   template: '<div><h2>Home</h2></div>'
 })
