@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Маршрутизация Vue с помощью Location</title>
+<meta charset="utf-8" />
+<style>
+    ul{list-style-type: none;padding: 0;}
+    li{display: inline-block; cursor: pointer;}
+    li:hover{color: red;}
+    a{padding: 5px;}
+    a.router-link-active, li.router-link-active>a {
+    color: red;
+    }
+</style>
+</head>
+<body>
+<div id="app">
+    <ul>
+      <li @click="changeSelected('home')">Home</li>
+      <li @click="changeSelected('products')">Products</li>
+      <li @click="changeSelected('about')">About</li>
+    </ul>    
+    <template v-if="selected=='about'"><about></about></template>
+    <template v-else-if="selected=='products'"><products></products></template>  
+    <template v-else><home></home></template>  
+</div>
+<script src="https://unpkg.com/vue"></script>
+<!-- <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
+<script>
+window.location.hash = 'home';
+Vue.component('home', {
+  template: '<div><h2>Home</h2></div>'
+})
+
+Vue.component('products', {
+  template: '<div><h2>Products</h2></div>'
+})
+
+Vue.component('about', {
+  template: '<div><h2>About</h2></div>'
+})
+
+new Vue({
+  el: '#app',
+  data: {
+    selected: 'home'
+  },
+  methods: {
+    changeSelected: function(name) {
+      console.log(name);
+      this.selected = name;
+      window.location.hash = name;
+    }
+  },
+  
+})
+</script>
+</body>
+</html>
